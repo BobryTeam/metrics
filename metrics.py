@@ -2,19 +2,19 @@ import json
 
 
 class Metrics:
-    def __init__(self, cpu_load: float, ram_load: float, avg_received_bytes: int, avg_transmitted_bytes: int):
+    def __init__(self, cpu_load: float, ram_load: float, net_in_load: float, net_out_load: float):
         '''
         Инициализация класса
-        `cpu_load` - общий процент загруженности ЦП за 1 минуту
-        `ram_load` - общий процент загруженности ОЗУ за 1 минуту
-        `avg_received_bytes` - среднее по репликам количество байтов считанных за 5 минут
-        `avg_transmitted_bytes` - среднее по репликам количество байтов отправленных за 5 минут
+        `cpu_load` - значение от 0 до 1 - процент загруженности ЦП за 1 минуту
+        `ram_load` - значение от 0 до 1 - процент загруженности ОЗУ за 1 минуту
+        `net_in_load` - значение >0 - средняя скорость входящего трафика в мбит/сек
+        `net_out_load` - значение >0 - средняя скорость исходящего трафика в мбит/сек
         '''
 
         self.cpu_load = cpu_load
         self.ram_load = ram_load
-        self.avg_received_bytes = avg_received_bytes
-        self.avg_transmitted_bytes = avg_transmitted_bytes
+        self.net_in_load = net_in_load
+        self.net_out_load = net_out_load
 
     def __str__(self) -> str:
         '''
@@ -24,8 +24,8 @@ class Metrics:
         data = {
             'cpu_load': self.cpu_load,
             'ram_load': self.ram_load,
-            'avg_received_bytes': self.avg_received_bytes,
-            'avg_transmitted_bytes': self.avg_transmitted_bytes
+            'net_in_load': self.net_in_load,
+            'net_out_load': self.net_out_load
         }
 
         return json.dumps(data)
@@ -42,8 +42,8 @@ class MetricsFromStr(Metrics):
             return super().__init__(
                 data['cpu_load'],
                 data['ram_load'],
-                data['avg_received_bytes'],
-                data['avg_transmitted_bytes'],
+                data['net_in_load'],
+                data['net_out_load'],
             )
         except:
             return super().__init__(
