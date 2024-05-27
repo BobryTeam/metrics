@@ -53,10 +53,10 @@ class MetricsFromStr(Metrics):
             data = json.loads(string_data)
 
             return super().__init__(
-                data['cpu_load'],
-                data['ram_load'],
-                data['net_in_load'],
-                data['net_out_load'],
+                float(data['cpu_load']),
+                float(data['ram_load']),
+                float(data['net_in_load']),
+                float(data['net_out_load']),
             )
         except:
             return super().__init__(
