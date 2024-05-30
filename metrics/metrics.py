@@ -11,7 +11,7 @@ class Metrics:
         avg(avg_over_time(node_memory_Buffers_bytes{{job="{target_job}"}}[1m]))) / \
         avg(avg_over_time(node_memory_MemTotal_bytes{{job="{target_job}"}}[1m])))',
 
-        f'avg(rate(node_network_receive_bytes_total{{job="{target_job}"}}[1m])) * 8 / 1024 / 1024 \
+        f'avg(rate(node_network_receive_bytes_total{{job="{target_job}"}}[1m])) * 8 / 1024 / 1024 + \
         avg(rate(node_network_transmit_bytes_total{{job="{target_job}"}}[1m])) * 8 / 1024 / 1024', 
     ]
 
